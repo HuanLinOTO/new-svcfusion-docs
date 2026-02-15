@@ -1,0 +1,608 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 36 33% 97%;
+  --foreground: 220 24% 14%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 24% 14%;
+  --primary: 197 92% 36%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 43 86% 65%;
+  --secondary-foreground: 220 24% 14%;
+  --muted: 43 45% 92%;
+  --muted-foreground: 223 14% 37%;
+  --accent: 16 86% 63%;
+  --accent-foreground: 0 0% 100%;
+  --border: 35 29% 84%;
+  --input: 35 29% 84%;
+  --ring: 197 92% 36%;
+  --radius: 1rem;
+}
+
+* {
+  @apply border-border;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  background-image:
+    radial-gradient(circle at 15% 15%, rgba(255, 188, 89, 0.25), transparent 40%),
+    radial-gradient(circle at 85% 5%, rgba(43, 186, 227, 0.2), transparent 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 246, 234, 0.9));
+  min-height: 100vh;
+}
+
+.content-transition {
+  animation: content-in 0.22s ease-out;
+  transform-origin: 50% 20%;
+}
+
+@keyframes content-in {
+  0% {
+    opacity: 0.96;
+    transform: scale(0.997);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.ticker-track {
+  width: max-content;
+  animation: ticker 24s linear infinite;
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hero-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.pulse-orb {
+  animation: pulse-orb 5s ease-in-out infinite;
+}
+
+.pulse-orb.delay-1 {
+  animation-delay: -2.5s;
+}
+
+@keyframes pulse-orb {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.45;
+  }
+}
+
+.signal-panel {
+  display: grid;
+  gap: 8px;
+}
+
+.signal-row {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.signal-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(226, 232, 240, 0.8);
+}
+
+.signal-track {
+  height: 9px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.signal-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0.92), rgba(125, 211, 252, 0.65));
+  animation: signal-breathe 2.2s ease-in-out infinite;
+}
+
+@keyframes signal-breathe {
+  0%,
+  100% {
+    filter: brightness(1);
+    transform: scaleX(0.98);
+  }
+  50% {
+    filter: brightness(1.18);
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content-transition,
+  .shine-mask::after,
+  .float-node,
+  .ticker-track,
+  .pulse-orb,
+  .signal-fill,
+  .hv-ring,
+  .ny-falling-item,
+  .ny-falling-inner,
+  .ny-corner,
+  .ny-banner-card {
+    animation: none !important;
+  }
+}
+
+.shine-mask {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-mask::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.5), transparent 65%);
+  transform: translateX(-55%) rotate(12deg);
+  animation: shine-sweep 4.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shine-sweep {
+  0%,
+  100% {
+    transform: translateX(-60%) rotate(12deg);
+  }
+  50% {
+    transform: translateX(55%) rotate(12deg);
+  }
+}
+
+.float-node {
+  animation: float-up 6s ease-in-out infinite;
+}
+
+.float-node.delay-1 {
+  animation-delay: -2s;
+}
+
+.float-node.delay-2 {
+  animation-delay: -4s;
+}
+
+@keyframes float-up {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.hv-ring {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 9999px;
+  border: 2px solid rgba(43, 186, 227, 0.25);
+  box-shadow:
+    0 0 0 10px rgba(255, 188, 89, 0.08),
+    0 25px 60px rgba(2, 132, 199, 0.12);
+  animation: hv-rotate 6s linear infinite;
+}
+
+@keyframes hv-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ny-effects {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ny-fireworks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+}
+
+.ny-falling {
+  position: absolute;
+  inset: 0;
+}
+
+.ny-falling-item {
+  position: absolute;
+  top: -10%;
+  font-size: 1.6em;
+  opacity: 0.28;
+  animation: ny-fall linear infinite;
+}
+
+.ny-falling-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+  animation: ny-wobble 4.5s ease-in-out infinite;
+}
+
+.ny-falling-inner svg {
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes ny-fall {
+  0% {
+    transform: translateY(0vh) translateX(0);
+  }
+  100% {
+    transform: translateY(115vh) translateX(24px);
+  }
+}
+
+@keyframes ny-wobble {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(8deg) scale(1.05);
+  }
+}
+
+.ny-falling-item:nth-child(1) {
+  left: 3%;
+  animation-duration: 14s;
+  animation-delay: 0s;
+  font-size: 1.4em;
+}
+.ny-falling-item:nth-child(2) {
+  left: 10%;
+  animation-duration: 18s;
+  animation-delay: 1s;
+  font-size: 1.1em;
+}
+.ny-falling-item:nth-child(3) {
+  left: 18%;
+  animation-duration: 12s;
+  animation-delay: 2s;
+  font-size: 1.6em;
+}
+.ny-falling-item:nth-child(4) {
+  left: 28%;
+  animation-duration: 20s;
+  animation-delay: 0.5s;
+  font-size: 1.2em;
+}
+.ny-falling-item:nth-child(5) {
+  left: 38%;
+  animation-duration: 13s;
+  animation-delay: 3s;
+  font-size: 1.5em;
+}
+.ny-falling-item:nth-child(6) {
+  left: 48%;
+  animation-duration: 16s;
+  animation-delay: 1.5s;
+  font-size: 1.1em;
+}
+.ny-falling-item:nth-child(7) {
+  left: 58%;
+  animation-duration: 19s;
+  animation-delay: 2.5s;
+  font-size: 1.3em;
+}
+.ny-falling-item:nth-child(8) {
+  left: 68%;
+  animation-duration: 11s;
+  animation-delay: 0s;
+  font-size: 1.7em;
+}
+.ny-falling-item:nth-child(9) {
+  left: 78%;
+  animation-duration: 22s;
+  animation-delay: 4s;
+  font-size: 1em;
+}
+.ny-falling-item:nth-child(10) {
+  left: 88%;
+  animation-duration: 15s;
+  animation-delay: 2s;
+  font-size: 1.4em;
+}
+.ny-falling-item:nth-child(11) {
+  left: 95%;
+  animation-duration: 16s;
+  animation-delay: 3.5s;
+  font-size: 1.2em;
+}
+.ny-falling-item:nth-child(12) {
+  left: 22%;
+  animation-duration: 13s;
+  animation-delay: 1s;
+  font-size: 1.5em;
+}
+.ny-falling-item:nth-child(13) {
+  left: 42%;
+  animation-duration: 21s;
+  animation-delay: 2.8s;
+  font-size: 1.05em;
+}
+.ny-falling-item:nth-child(14) {
+  left: 62%;
+  animation-duration: 14s;
+  animation-delay: 0.8s;
+  font-size: 1.3em;
+}
+.ny-falling-item:nth-child(15) {
+  left: 82%;
+  animation-duration: 18s;
+  animation-delay: 3.2s;
+  font-size: 1.15em;
+}
+
+.ny-corner {
+  position: fixed;
+  top: 10px;
+  font-size: 34px;
+  opacity: 0.28;
+  filter: drop-shadow(0 8px 18px rgba(255, 188, 89, 0.25));
+  animation: ny-corner-swing 3.2s ease-in-out infinite;
+}
+
+.ny-corner svg {
+  width: 1em;
+  height: 1.2em;
+}
+
+.ny-corner-left {
+  left: 10px;
+}
+
+.ny-corner-right {
+  right: 10px;
+  animation-delay: -0.6s;
+}
+
+@keyframes ny-corner-swing {
+  0%,
+  100% {
+    transform: rotate(-8deg) scale(1);
+  }
+  50% {
+    transform: rotate(8deg) scale(1.05);
+  }
+}
+
+.ny-banner {
+  pointer-events: auto;
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(920px, calc(100% - 2rem));
+}
+
+.ny-banner-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(2, 132, 199, 0.18);
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 18px 50px rgba(15, 23, 42, 0.16),
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  padding: 14px 16px;
+  text-align: left;
+  transition: transform 180ms ease, filter 180ms ease;
+  animation: ny-banner-in 240ms ease-out;
+  background-image:
+    radial-gradient(circle at 15% 40%, rgba(255, 188, 89, 0.18), transparent 48%),
+    radial-gradient(circle at 85% 30%, rgba(43, 186, 227, 0.14), transparent 42%);
+}
+
+.ny-banner:hover .ny-banner-card {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+}
+
+.ny-banner-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ny-banner-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgb(2 132 199);
+  background: rgba(2, 132, 199, 0.1);
+}
+
+.ny-banner-hint {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(51, 65, 85, 0.62);
+}
+
+.ny-banner-text {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(15, 23, 42, 0.88);
+}
+
+@keyframes ny-banner-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.prose-docs {
+  @apply max-w-none leading-7;
+}
+
+.prose-docs h1,
+.prose-docs h2,
+.prose-docs h3,
+.prose-docs h4 {
+  @apply mt-8 scroll-m-20 font-semibold tracking-tight;
+}
+
+.prose-docs h1 {
+  @apply text-3xl;
+}
+
+.prose-docs h2 {
+  @apply border-b pb-2 text-2xl;
+}
+
+.prose-docs h3 {
+  @apply text-xl;
+}
+
+.prose-docs h4,
+.prose-docs h5,
+.prose-docs h6 {
+  @apply text-lg font-semibold;
+}
+
+.prose-docs p,
+.prose-docs li {
+  @apply text-[15px] text-foreground/90;
+}
+
+.prose-docs ul,
+.prose-docs ol {
+  @apply my-4 ml-5;
+}
+
+.prose-docs ul {
+  @apply list-disc;
+}
+
+.prose-docs ol {
+  @apply list-decimal;
+}
+
+.prose-docs code {
+  @apply rounded bg-muted px-1 py-0.5 text-sm;
+}
+
+.prose-docs pre {
+  @apply my-4 overflow-x-auto rounded-lg bg-zinc-900 p-4 text-zinc-100;
+}
+
+.prose-docs pre code {
+  @apply bg-transparent p-0 text-inherit;
+}
+
+.prose-docs a {
+  @apply font-medium text-primary underline-offset-4 hover:underline;
+}
+
+.prose-docs blockquote {
+  @apply my-4 border-l-4 border-primary/40 pl-4 italic text-muted-foreground;
+}
+
+.prose-docs img {
+  @apply max-w-full;
+}
+
+.prose-docs figure {
+  @apply my-6;
+}
+
+.prose-docs figcaption {
+  @apply mt-2 text-center text-xs text-muted-foreground;
+}
+
+.prose-docs .admonition {
+  @apply my-6 rounded-lg border-l-4 p-4;
+}
+
+.prose-docs .admonition.tip {
+  @apply border-emerald-400 bg-emerald-50/60;
+}
+
+.prose-docs .admonition.warning {
+  @apply border-amber-400 bg-amber-50/60;
+}
+
+.prose-docs .admonition.danger {
+  @apply border-rose-400 bg-rose-50/60;
+}
+
+.prose-docs .admonition-title {
+  @apply mb-2 flex items-center gap-2 font-semibold;
+}
+
+.prose-docs .admonition.tip .admonition-title {
+  @apply text-emerald-800;
+}
+
+.prose-docs .admonition.warning .admonition-title {
+  @apply text-amber-800;
+}
+
+.prose-docs .admonition.danger .admonition-title {
+  @apply text-rose-800;
+}
+
+.prose-docs .admonition-content {
+  @apply text-sm leading-relaxed;
+}
+
+.prose-docs .admonition-content p {
+  @apply my-2;
+}
+
+.prose-docs .admonition-content p:first-child {
+  @apply mt-0;
+}
+
+.prose-docs .admonition-content p:last-child {
+  @apply mb-0;
+}

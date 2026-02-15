@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+dist/
+
+# local notes
+a.txt
+
+
+# duplicated assets folder (use public/imgs instead)
+imgs/
+
+# local temp
+*.log
+.DS_Store
+Thumbs.db
