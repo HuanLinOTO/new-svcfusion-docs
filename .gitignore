@@ -8,7 +8,9 @@ a.txt
 
 
 # duplicated assets folder (use public/imgs instead)
-imgs/
+/imgs/
+!public/imgs/
+!public/imgs/**
 
 # local temp
 *.log
