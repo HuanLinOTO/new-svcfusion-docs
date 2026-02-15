@@ -32,7 +32,7 @@ function parseDlcSectionsFromSource(source: string): DlcSection[] {
 
 export function getDlcSections(): DlcSection[] {
   try {
-    const filePath = path.join(process.cwd(), "raw_conent", "dlc.md");
+    const filePath = path.join(process.cwd(), "raw", "dlc.md");
     const source = fs.readFileSync(filePath, "utf8");
     return parseDlcSectionsFromSource(source);
   } catch {

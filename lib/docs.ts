@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 
-const RAW_ROOT = path.join(process.cwd(), "raw_conent");
+const RAW_ROOT = path.join(process.cwd(), "raw");
 const HIDDEN_NAV_DOCS = new Set(["download", "start/old_launch"]);
 
 type RawDoc = {
@@ -187,22 +187,22 @@ function preprocessMarkdown(content: string, relativePath: string): string {
   if (relativePath === "dlc.md") return buildDlcMarkdown(content);
 
   let output = content;
-  
+
   // Remove Vue-specific blocks first
   output = removeVueScriptBlocks(output);
-  
+
   // Convert admonitions before normalizing assets
   output = convertAdmonitions(output);
-  
+
   // Normalize asset paths
   output = normalizeAssetReferences(output);
 
   // Fix internal links
   output = output.replace(/\]\((\/[^)]+)\)/g, (_m, link: string) => `](${mapInternalLink(link)})`);
-  
+
   // Clean up empty headings
   output = output.replace(/^#{1,6}\s*$/gm, "");
-  
+
   // Clean up excessive blank lines
   output = output.replace(/\n{3,}/g, "\n\n");
 
